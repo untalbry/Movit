@@ -1,14 +1,17 @@
 package com.binarybrains.movit.login.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -38,92 +41,109 @@ fun LoginScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .background(Color(0xFFb8b8b8)),
+            //.background(Color(0xFF004E64)),
         contentAlignment = Alignment.Center
-
-
     ) {
-        Login(Modifier.align(Alignment.Center))
+        Login()
     }
 }
 
 @Composable
-fun Login(modifier: Modifier) {
-    Column(modifier = Modifier) {
-        HeaderImage(Modifier.align(Alignment.CenterHorizontally))
+fun Login() {
+    Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        HeaderImage()
         Spacer(modifier = Modifier.padding(16.dp))
         EmailField()
-        Spacer(modifier = Modifier.padding(4.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
         PasswordField()
         Spacer(modifier = Modifier.padding(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.padding(16.dp))
         LoginButton()
+        Spacer(modifier = Modifier.padding(16.dp))
+        Row {
+            Text("¿No tienes cuenta?", color = Color(0xFFFFFFFF), fontWeight = FontWeight.Bold)
+            Text(text = "  Crea una cuenta", color = Color(0xFF004e64))
+        }
     }
 }
 
 @Composable
-fun HeaderImage(modifier: Modifier) {
+fun HeaderImage() {
     Image(
         painter = painterResource(id = movit_logo),
         contentDescription = "Movit Logo",
-        modifier = modifier
+        modifier = Modifier.size(150.dp)
     )
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun EmailField() {
-    TextField(
-        value = "",
-        onValueChange = {},
+    Column(
         modifier =
-        Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Email", color = Color(0xFF636262)) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        singleLine = true,
-        maxLines = 1,
-        colors = TextFieldDefaults.colors(
-            focusedTextColor = Color(0xFF636262),
-            unfocusedTextColor = Color(0xFF636262),
-            focusedContainerColor = Color(0xFFDEDDDD),
-            unfocusedContainerColor = Color(0xFFDEDDDD),
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+        Modifier.padding(horizontal = 16.dp)
+    ) {
+        Text(text = "Correo", color = Color(0xFF02090b))
+        TextField(
+            value = "",
+            onValueChange = {},
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = { Text(text = "ejemplo@ipn.mx", color = Color(0xFF536D74)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            singleLine = true,
+            maxLines = 1,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = Color(0xFFFDFDFD),
+                unfocusedTextColor = Color(0xFFFDFDFD),
+                focusedContainerColor = Color(0xFFDEDDDD),
+                unfocusedContainerColor = Color(0xFFDEDDDD),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            )
         )
-    )
+    }
 }
 
 @Composable
 fun PasswordField() {
-    TextField(
-        value = "",
-        onValueChange = {},
+    Column(
         modifier =
-        Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Contraseña", color = Color(0xFF636262)) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        singleLine = true,
-        maxLines = 1,
-        colors = TextFieldDefaults.colors(
-            focusedTextColor = Color(0xFF636262),
-            unfocusedTextColor = Color(0xFF636262),
-            focusedContainerColor = Color(0xFFDEDDDD),
-            unfocusedContainerColor = Color(0xFFDEDDDD),
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+        Modifier.padding(horizontal = 16.dp)
+    ) {
+        Text(text = "Contraseña", color = Color(0xFF02090b))
+        TextField(
+            value = "",
+            onValueChange = {},
+            modifier =
+            Modifier
+                .fillMaxWidth(),
+            placeholder = { Text(text = "*******", color = Color(0xFF536D74)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
+            maxLines = 1,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = Color(0xFF636262),
+                unfocusedTextColor = Color(0xFF636262),
+                focusedContainerColor = Color(0xFFDEDDDD),
+                unfocusedContainerColor = Color(0xFFDEDDDD),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            )
         )
-    )
+    }
 }
 
 @Composable
 fun ForgotPassword(modifier: Modifier) {
     Text(
         text = "Olvidaste la contraseña?",
-        modifier = modifier.clickable { },
-        fontSize = 12.sp,
+        modifier = modifier
+            .clickable { }
+            .padding(horizontal = 16.dp),
+        fontSize = 13.sp,
         fontWeight = FontWeight.Bold,
-        color = Color(0xFFFB9600)
+        color = Color(0xFF082A33)
     )
 }
 
@@ -133,10 +153,11 @@ fun LoginButton() {
         onClick = { /*TODO*/ },
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp),
+            .height(48.dp)
+            .padding(horizontal = 16.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFF4303),
-            disabledContainerColor = Color(0xFFF78058),
+            containerColor = Color(0xFF004e64),
+            disabledContainerColor = Color(0xFF004e64),
             contentColor = Color.White,
             disabledContentColor = Color.White
         )
