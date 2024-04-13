@@ -52,7 +52,9 @@ fun Register() {
         Spacer(modifier = Modifier.padding(16.dp))
         NameField()
         Spacer(modifier = Modifier.padding(8.dp))
-        LastNameField()
+        FirstLastNameField()
+        Spacer(modifier = Modifier.padding(8.dp))
+        SecondLastNameField()
         Spacer(modifier = Modifier.padding(8.dp))
         NumberField()
         Spacer(modifier = Modifier.padding(8.dp))
@@ -91,19 +93,48 @@ fun NameField() {
 }
 
 @Composable
-fun LastNameField() {
+fun FirstLastNameField() {
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
-        Text(text = "Apellidos", color = Color(0xFF02090b))
+        Text(text = "Primer apellido", color = Color(0xFF02090b))
         TextField(
             value = "",
             onValueChange = {},
             modifier =
             Modifier
                 .fillMaxWidth(),
-            placeholder = { Text(text = "Perez Montoya", color = Color(0xFF536D74)) },
+            placeholder = { Text(text = "Perez", color = Color(0xFF536D74)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            singleLine = true,
+            maxLines = 1,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = Color(0xFF636262),
+                unfocusedTextColor = Color(0xFF636262),
+                focusedContainerColor = Color(0xFFDEDDDD),
+                unfocusedContainerColor = Color(0xFFDEDDDD),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            )
+        )
+    }
+}
+
+@Composable
+fun SecondLastNameField() {
+    Column(
+        modifier =
+        Modifier.padding(horizontal = 16.dp)
+    ) {
+        Text(text = "Segundo Apellido", color = Color(0xFF02090b))
+        TextField(
+            value = "",
+            onValueChange = {},
+            modifier =
+            Modifier
+                .fillMaxWidth(),
+            placeholder = { Text(text = "Montoya", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             singleLine = true,
             maxLines = 1,
