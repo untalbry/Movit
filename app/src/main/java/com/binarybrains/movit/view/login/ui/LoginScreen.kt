@@ -1,4 +1,4 @@
-package com.binarybrains.movit.login.ui
+package com.binarybrains.movit.view.login.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +19,10 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 //import androidx.compose.runtime.MutableState
 //import androidx.compose.runtime.getValue
 //import androidx.compose.runtime.mutableStateOf
@@ -36,7 +40,7 @@ import com.binarybrains.movit.R.drawable.movit_logo
 // View
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(viewModel: LoginViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -44,18 +48,24 @@ fun LoginScreen() {
             //.background(Color(0xFF004E64)),
         contentAlignment = Alignment.Center
     ) {
-        Login()
+        Login(viewModel)
     }
 }
 
 @Composable
-fun Login() {
+fun Login(viewModel: LoginViewModel) {
+    val email = viewModel.getLoginEmail()
+    val password = viewModel.getLoginPassword()
+
+
+
     Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         HeaderImage()
         Spacer(modifier = Modifier.padding(16.dp))
-        EmailField()
+        EmailField(email.value, {viewModel.onChangeLoginEmail(it)})
+        //EmailField(email, {viewModel.onLoginChanged(it, password)})
         Spacer(modifier = Modifier.padding(8.dp))
-        PasswordField()
+        PasswordField(password.value, {viewModel.onChangeLoginPassword(it)})
         Spacer(modifier = Modifier.padding(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.padding(16.dp))
@@ -65,6 +75,7 @@ fun Login() {
             Text("¿No tienes cuenta?", color = Color(0xFFFFFFFF), fontWeight = FontWeight.Bold)
             Text(text = "  Crea una cuenta", color = Color(0xFF004e64))
         }
+        Text(text = viewModel.getLoginEmail().value)
     }
 }
 
@@ -78,15 +89,15 @@ fun HeaderImage() {
 }
 
 @Composable
-fun EmailField() {
+fun EmailField(email: String, onTextChanged: (String) -> Unit) {
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Correo", color = Color(0xFF02090b))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = {onTextChanged(it)},
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text(text = "ejemplo@ipn.mx", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -105,15 +116,15 @@ fun EmailField() {
 }
 
 @Composable
-fun PasswordField() {
+fun PasswordField(password: String, onPasswordChanged: (String) -> Unit) {
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Contraseña", color = Color(0xFF02090b))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = {onPasswordChanged(it)},
             modifier =
             Modifier
                 .fillMaxWidth(),

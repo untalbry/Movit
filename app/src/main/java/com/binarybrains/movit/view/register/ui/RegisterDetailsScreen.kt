@@ -53,7 +53,8 @@ fun RegisterDetails() {
         CurpField()
         Spacer(modifier = Modifier.padding(8.dp))
         NextButton()
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(4.dp))
+        BackButton()
     }
 }
 
@@ -214,6 +215,26 @@ fun NextButton() {
         )
     ) {
         Text(text = "Continuar")
+
+    }
+}
+
+@Composable
+fun BackButton() {
+    Button(
+        onClick = { /*TODO*/ },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp)
+            .padding(horizontal = 16.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFFDEDDDD),
+            disabledContainerColor = Color(0xFFDEDDDD),
+            contentColor = Color.White,
+            disabledContentColor = Color.White
+        )
+    ) {
+        Text(text = "Regresar", color = Color(0xFF02090B))
 
     }
 }

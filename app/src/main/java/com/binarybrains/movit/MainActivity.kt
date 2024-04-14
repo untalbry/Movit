@@ -6,14 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.binarybrains.movit.login.ui.LoginScreen
-import com.binarybrains.movit.register.ui.RegisterScreen
-import com.binarybrains.movit.startup.ui.StartupScreen
+import com.binarybrains.movit.view.login.ui.LoginScreen
 import com.binarybrains.movit.ui.theme.MovitTheme
+import com.binarybrains.movit.view.login.ui.LoginViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +22,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //StartupScreen()
-                     // LoginScreen()
-                    RegisterScreen()
+                     LoginScreen(LoginViewModel())
+                    //RegisterScreen()
+                    // RegisterDetailsScreen()
                 }
             }
         }
