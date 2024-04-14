@@ -19,8 +19,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+import com.binarybrains.movit.view.register.ui.RegisterVIewModel
+
+
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(viewModel: RegisterVIewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -28,38 +31,43 @@ fun RegisterScreen() {
             //.background(Color(0xFF004E64)),
         contentAlignment = Alignment.Center
     ) {
-        Register()
+        Register(viewModel)
     }
 }
 
 @Composable
-fun Register(){
+
+fun Register(viewModel: RegisterVIewModel){
+    val email = viewModel.getRegisterEmail()
+    val confirmEmail = viewModel.getRegisterConfirmEmail()
+    val password = viewModel.getRegisterPassword()
+    val confirmPassword = viewModel.getRegisterConfirmPassword()
+
     Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "Crear cuenta", fontSize = 32.sp, color = Color(0xFF004e64))
         Spacer(modifier = Modifier.padding(16.dp))
-        EmailField()
+        EmailField(email.value, {viewModel.onChangeRegisterEmail(it)})
         Spacer(modifier = Modifier.padding(8.dp))
-        ConfirmEmailField()
+        ConfirmEmailField(confirmEmail.value, {viewModel.onChangeRegisterConfirmEmail(it)})
         Spacer(modifier = Modifier.padding(8.dp))
-        PasswordField()
+        PasswordField(password.value, {viewModel.onChangeRegisterPassword(it)})
         Spacer(modifier = Modifier.padding(8.dp))
-        ConfirmPasswordField()
-        Spacer(modifier = Modifier.padding(8.dp))
-        Spacer(modifier = Modifier.padding(8.dp))
+        ConfirmPasswordField(confirmPassword.value, {viewModel.onChangeRegisterConfirmPassword(it)})
+        Spacer(modifier = Modifier.padding(16.dp))
         NextButton()
     }
 }
 
 @Composable
-fun EmailField() {
+fun EmailField(email: String, onTextChanged: (String) -> Unit) {
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Correo", color = Color(0xFF02090b))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = {onTextChanged(it)},
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text(text = "ejemplo@ipn.mx", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -78,15 +86,15 @@ fun EmailField() {
 }
 
 @Composable
-fun ConfirmEmailField(){
+fun ConfirmEmailField(confirmEmail: String, onTextChanged: (String) -> Unit){
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Confirmar correo", color = Color(0xFF02090b))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = confirmEmail,
+            onValueChange = {onTextChanged(it)},
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text(text = "ejemplo@ipn.mx", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -105,15 +113,16 @@ fun ConfirmEmailField(){
 }
 
 @Composable
-fun PasswordField() {
+fun PasswordField(password: String, onTextChanged: (String) -> Unit) {
+
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Contraseña", color = Color(0xFF02090b))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = {onTextChanged(it)},
             modifier =
             Modifier
                 .fillMaxWidth(),
@@ -134,15 +143,17 @@ fun PasswordField() {
 }
 
 @Composable
-fun ConfirmPasswordField() {
+
+fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Unit) {
+
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Confirmar contraseña", color = Color(0xFF02090b))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = confirmPassword,
+            onValueChange = {onTextChanged(it)},
             modifier =
             Modifier
                 .fillMaxWidth(),
