@@ -26,3 +26,4 @@ data class User(
     @ColumnInfo(name= "nivel_confianza") val confidenceLevel: Int =0
 
 )
+
