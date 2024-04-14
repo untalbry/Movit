@@ -6,7 +6,7 @@ enum class MonthlyInteresRate(val id: Int, val interest: Int) {
     THIRTH_INTEREST(2,20),
     FORTH_INTEREST(3, 10),
     FIFTH_INTEREST(4,15),
-    SIX_INTEREST(5,5)
+    SIXTH_INTEREST(5,5)
 }
 fun getMonthlyInterestRateById(id:Int):Int?{
     return MonthlyInteresRate.entries.find { it.id == id}?.interest
