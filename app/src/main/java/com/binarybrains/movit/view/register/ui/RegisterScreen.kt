@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -54,7 +57,7 @@ fun Register(viewModel: RegisterVIewModel){
         Spacer(modifier = Modifier.padding(8.dp))
         ConfirmPasswordField(confirmPassword.value, {viewModel.onChangeRegisterConfirmPassword(it)})
         Spacer(modifier = Modifier.padding(16.dp))
-        NextButton()
+        NextRegisterButton({})
     }
 }
 
@@ -170,5 +173,25 @@ fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Uni
                 unfocusedIndicatorColor = Color.Transparent
             )
         )
+    }
+}
+
+@Composable
+fun NextRegisterButton(onClick: () -> Unit) {
+    Button(
+        onClick = { /*TODO*/ },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp)
+            .padding(horizontal = 16.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF004e64),
+            disabledContainerColor = Color(0xFF004e64),
+            contentColor = Color.White,
+            disabledContentColor = Color.White
+        )
+    ) {
+        Text(text = "Continuar")
+
     }
 }
