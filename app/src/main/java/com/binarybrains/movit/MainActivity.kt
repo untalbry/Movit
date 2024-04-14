@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //StartupScreen()
+
                      //LoginScreen(LoginViewModel())
                     RegisterScreen(RegisterVIewModel())
                     // RegisterDetailsScreen()

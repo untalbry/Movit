@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
 @Entity(tableName = "Musuario")
 data class User(
     @PrimaryKey(autoGenerate = true) val userId: Long = 0,
@@ -23,4 +24,5 @@ data class User(
     @ColumnInfo(name = "gastos") val bills: Double?,
     @ColumnInfo(name = "disponibilidad") val availability: String?,
     @ColumnInfo(name= "nivel_confianza") val confidenceLevel: Int =0
+
 )

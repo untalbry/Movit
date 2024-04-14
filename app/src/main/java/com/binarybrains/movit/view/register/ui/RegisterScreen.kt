@@ -18,7 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 import com.binarybrains.movit.view.register.ui.RegisterVIewModel
+
 
 @Composable
 fun RegisterScreen(viewModel: RegisterVIewModel) {
@@ -34,6 +36,7 @@ fun RegisterScreen(viewModel: RegisterVIewModel) {
 }
 
 @Composable
+
 fun Register(viewModel: RegisterVIewModel){
     val email = viewModel.getRegisterEmail()
     val confirmEmail = viewModel.getRegisterConfirmEmail()
@@ -111,6 +114,7 @@ fun ConfirmEmailField(confirmEmail: String, onTextChanged: (String) -> Unit){
 
 @Composable
 fun PasswordField(password: String, onTextChanged: (String) -> Unit) {
+
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
@@ -139,7 +143,9 @@ fun PasswordField(password: String, onTextChanged: (String) -> Unit) {
 }
 
 @Composable
+
 fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Unit) {
+
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
