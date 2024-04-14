@@ -2,7 +2,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 //import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
-import com.binarybrains.movit.model.entity.User
+import com.binarybrains.movit.model.persistance.User
 
 @Entity(tableName = "referente_referido", primaryKeys = ["id_referente","id_referido"],
     foreignKeys = [ForeignKey(

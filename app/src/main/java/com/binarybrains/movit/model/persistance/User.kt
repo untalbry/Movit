@@ -1,4 +1,4 @@
-package com.binarybrains.movit.model.entity
+package com.binarybrains.movit.model.persistance
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

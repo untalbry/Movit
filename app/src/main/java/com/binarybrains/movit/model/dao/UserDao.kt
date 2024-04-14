@@ -1,10 +1,9 @@
-import androidx.core.app.GrammaticalInflectionManagerCompat.GrammaticalGender
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Insert
 import androidx.room.*
-import com.binarybrains.movit.model.entity.User
-import com.binarybrains.movit.model.persistance.userBasicInfo
+import com.binarybrains.movit.model.persistance.User
+import com.binarybrains.movit.model.entity.userBasicInfo
 
 @Dao
 interface UserDao{
@@ -12,7 +11,7 @@ interface UserDao{
     fun getAll():List<User>
 
     @Query("SELECT appat,apmat,correo from Musuario where correo= :email" )
-    fun findUserByEmail(email: String):userBasicInfo?
+    fun findUserByEmail(email: String): userBasicInfo?
 
     // Leer usuario por ID
     @Query("SELECT * FROM Musuario WHERE userId = :userId")

@@ -1,4 +1,4 @@
-package com.binarybrains.movit.model.persistance
+package com.binarybrains.movit.model.entity
 
 data class userBasicInfo (
     val firstName: String?,
