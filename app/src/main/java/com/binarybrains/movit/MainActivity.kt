@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.binarybrains.movit.login.ui.LoginScreen
+import com.binarybrains.movit.register.ui.RegisterScreen
 import com.binarybrains.movit.startup.ui.StartupScreen
 import com.binarybrains.movit.ui.theme.MovitTheme
 
@@ -25,7 +26,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //StartupScreen()
-                      LoginScreen()
+                     // LoginScreen()
+                    RegisterScreen()
                 }
             }
         }
