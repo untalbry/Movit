@@ -1,7 +1,4 @@
-package com.binarybrains.movit.register.ui
-
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,45 +22,48 @@ import androidx.compose.ui.unit.sp
 
 import com.binarybrains.movit.view.register.ui.RegisterVIewModel
 
-
 @Composable
 fun RegisterScreen(viewModel: RegisterVIewModel) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFb8b8b8)),
-            //.background(Color(0xFF004E64)),
-        contentAlignment = Alignment.Center
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
     ) {
         Register(viewModel)
     }
 }
 
 @Composable
-
 fun Register(viewModel: RegisterVIewModel){
     val email = viewModel.getRegisterEmail()
     val confirmEmail = viewModel.getRegisterConfirmEmail()
     val password = viewModel.getRegisterPassword()
     val confirmPassword = viewModel.getRegisterConfirmPassword()
 
-    Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+    val isEmailEmpty = remember { mutableStateOf(false) }
+    val isConfirmEmailEmpty = remember { mutableStateOf(false) }
+    val isPasswordEmpty = remember { mutableStateOf(false) }
+    val isConfirmPasswordEmpty = remember { mutableStateOf(false) }
+
+    Column(modifier = Modifier, horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
         Text(text = "Crear cuenta", fontSize = 32.sp, color = Color(0xFF004e64))
         Spacer(modifier = Modifier.padding(16.dp))
-        EmailField(email.value, {viewModel.onChangeRegisterEmail(it)})
+        EmailField(email.value, {viewModel.onChangeRegisterEmail(it)}, isEmailEmpty)
         Spacer(modifier = Modifier.padding(8.dp))
-        ConfirmEmailField(confirmEmail.value, {viewModel.onChangeRegisterConfirmEmail(it)})
+        ConfirmEmailField(confirmEmail.value, {viewModel.onChangeRegisterConfirmEmail(it)}, isConfirmEmailEmpty)
         Spacer(modifier = Modifier.padding(8.dp))
-        PasswordField(password.value, {viewModel.onChangeRegisterPassword(it)})
+        PasswordField(password.value, {viewModel.onChangeRegisterPassword(it)}, isPasswordEmpty)
         Spacer(modifier = Modifier.padding(8.dp))
-        ConfirmPasswordField(confirmPassword.value, {viewModel.onChangeRegisterConfirmPassword(it)})
+        ConfirmPasswordField(confirmPassword.value, {viewModel.onChangeRegisterConfirmPassword(it)}, isConfirmPasswordEmpty)
         Spacer(modifier = Modifier.padding(16.dp))
-        NextRegisterButton({})
+        NextRegisterButton({
+            validateFields(email.value, confirmEmail.value, password.value, confirmPassword.value,
+                isEmailEmpty, isConfirmEmailEmpty, isPasswordEmpty, isConfirmPasswordEmpty)
+        })
     }
 }
 
 @Composable
-fun EmailField(email: String, onTextChanged: (String) -> Unit) {
+fun EmailField(email: String, onTextChanged: (String) -> Unit, isEmpty: androidx.compose.runtime.MutableState<Boolean>) {
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
@@ -70,8 +71,13 @@ fun EmailField(email: String, onTextChanged: (String) -> Unit) {
         Text(text = "Correo", color = Color(0xFF02090b))
         TextField(
             value = email,
-            onValueChange = {onTextChanged(it)},
-            modifier = Modifier.fillMaxWidth(),
+            onValueChange = {
+                onTextChanged(it)
+                isEmpty.value = it.isEmpty()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(width = 1.dp, color = if (isEmpty.value) Color.Red else Color.Transparent),
             placeholder = { Text(text = "ejemplo@ipn.mx", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
@@ -89,7 +95,7 @@ fun EmailField(email: String, onTextChanged: (String) -> Unit) {
 }
 
 @Composable
-fun ConfirmEmailField(confirmEmail: String, onTextChanged: (String) -> Unit){
+fun ConfirmEmailField(confirmEmail: String, onTextChanged: (String) -> Unit, isEmpty: androidx.compose.runtime.MutableState<Boolean>){
     Column(
         modifier =
         Modifier.padding(horizontal = 16.dp)
@@ -97,8 +103,13 @@ fun ConfirmEmailField(confirmEmail: String, onTextChanged: (String) -> Unit){
         Text(text = "Confirmar correo", color = Color(0xFF02090b))
         TextField(
             value = confirmEmail,
-            onValueChange = {onTextChanged(it)},
-            modifier = Modifier.fillMaxWidth(),
+            onValueChange = {
+                onTextChanged(it)
+                isEmpty.value = it.isEmpty()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(width = 1.dp, color = if (isEmpty.value) Color.Red else Color.Transparent),
             placeholder = { Text(text = "ejemplo@ipn.mx", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
@@ -116,7 +127,7 @@ fun ConfirmEmailField(confirmEmail: String, onTextChanged: (String) -> Unit){
 }
 
 @Composable
-fun PasswordField(password: String, onTextChanged: (String) -> Unit) {
+fun PasswordField(password: String, onTextChanged: (String) -> Unit, isEmpty: androidx.compose.runtime.MutableState<Boolean>) {
 
     Column(
         modifier =
@@ -125,10 +136,14 @@ fun PasswordField(password: String, onTextChanged: (String) -> Unit) {
         Text(text = "Contraseña", color = Color(0xFF02090b))
         TextField(
             value = password,
-            onValueChange = {onTextChanged(it)},
+            onValueChange = {
+                onTextChanged(it)
+                isEmpty.value = it.isEmpty()
+            },
             modifier =
             Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .border(width = 1.dp, color = if (isEmpty.value) Color.Red else Color.Transparent),
             placeholder = { Text(text = "*******", color = Color(0xFF536D74)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             singleLine = true,
@@ -146,8 +161,7 @@ fun PasswordField(password: String, onTextChanged: (String) -> Unit) {
 }
 
 @Composable
-
-fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Unit) {
+fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Unit, isEmpty: androidx.compose.runtime.MutableState<Boolean>) {
 
     Column(
         modifier =
@@ -156,12 +170,16 @@ fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Uni
         Text(text = "Confirmar contraseña", color = Color(0xFF02090b))
         TextField(
             value = confirmPassword,
-            onValueChange = {onTextChanged(it)},
+            onValueChange = {
+                onTextChanged(it)
+                isEmpty.value = it.isEmpty()
+            },
             modifier =
             Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .border(width = 1.dp, color = if (isEmpty.value) Color.Red else Color.Transparent),
             placeholder = { Text(text = "*******", color = Color(0xFF536D74)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(keyboardType= KeyboardType.Password),
             singleLine = true,
             maxLines = 1,
             colors = TextFieldDefaults.colors(
@@ -179,7 +197,7 @@ fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Uni
 @Composable
 fun NextRegisterButton(onClick: () -> Unit) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
@@ -192,6 +210,30 @@ fun NextRegisterButton(onClick: () -> Unit) {
         )
     ) {
         Text(text = "Continuar")
-
     }
+}
+
+fun validateFields(
+    email: String,
+    confirmEmail: String,
+    password: String,
+    confirmPassword: String,
+    isEmailEmpty: androidx.compose.runtime.MutableState<Boolean>,
+    isConfirmEmailEmpty: androidx.compose.runtime.MutableState<Boolean>,
+    isPasswordEmpty: androidx.compose.runtime.MutableState<Boolean>,
+    isConfirmPasswordEmpty: androidx.compose.runtime.MutableState<Boolean>
+) {
+    isEmailEmpty.value = email.isEmpty()
+    isConfirmEmailEmpty.value = confirmEmail.isEmpty()
+    isPasswordEmpty.value = password.isEmpty()
+    isConfirmPasswordEmpty.value = confirmPassword.isEmpty()
+// Here you can add additional validation logic if needed
+
+// For example, if any field is empty, you can return early and prevent further processing
+    if (isEmailEmpty.value || isConfirmEmailEmpty.value || isPasswordEmpty.value || isConfirmPasswordEmpty.value) {
+        return
+    }
+
+// If all fields are filled, you can proceed with further logic
+// For example, you can submit the form data
 }
