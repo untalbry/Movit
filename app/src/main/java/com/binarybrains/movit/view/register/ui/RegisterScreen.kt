@@ -174,8 +174,7 @@ fun ConfirmPasswordField(confirmPassword: String, onTextChanged: (String) -> Uni
                 onTextChanged(it)
                 isEmpty.value = it.isEmpty()
             },
-            modifier =
-            Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .border(width = 1.dp, color = if (isEmpty.value) Color.Red else Color.Transparent),
             placeholder = { Text(text = "*******", color = Color(0xFF536D74)) },
@@ -227,13 +226,7 @@ fun validateFields(
     isConfirmEmailEmpty.value = confirmEmail.isEmpty()
     isPasswordEmpty.value = password.isEmpty()
     isConfirmPasswordEmpty.value = confirmPassword.isEmpty()
-// Here you can add additional validation logic if needed
-
-// For example, if any field is empty, you can return early and prevent further processing
     if (isEmailEmpty.value || isConfirmEmailEmpty.value || isPasswordEmpty.value || isConfirmPasswordEmpty.value) {
         return
     }
-
-// If all fields are filled, you can proceed with further logic
-// For example, you can submit the form data
 }
