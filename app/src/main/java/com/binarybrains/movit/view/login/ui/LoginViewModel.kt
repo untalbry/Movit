@@ -1,11 +1,7 @@
 package com.binarybrains.movit.view.login.ui
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
 class LoginViewModel: ViewModel() {
     private var _email  =  mutableStateOf("")
 

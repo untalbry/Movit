@@ -95,6 +95,7 @@ fun EmailField(email: String, onTextChanged: (String) -> Unit) {
         Modifier.padding(horizontal = 16.dp)
     ) {
         Text(text = "Correo", color = Color(0xFF02090b))
+
         TextField(
             value = email,
             onValueChange = {onTextChanged(it)},
