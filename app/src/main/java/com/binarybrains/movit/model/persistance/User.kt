@@ -22,7 +22,7 @@ data class User(
     @ColumnInfo(name = "ine") val ine: String?,
     @ColumnInfo(name = "telefono") val phone: String?,
     @ColumnInfo(name = "gastos") val bills: Double?,
-    @ColumnInfo(name = "disponibilidad") val availability: String?,
+    @ColumnInfo(name = "disponibilidad") val availability: Int=0,
     @ColumnInfo(name= "nivel_confianza") val confidenceLevel: Int =0
 
 )
