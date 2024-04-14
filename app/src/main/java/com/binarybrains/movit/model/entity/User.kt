@@ -18,6 +18,10 @@ class User {
     @ColumnInfo(name = "age") val age: Int = 0
     @ColumnInfo(name = "geneder") val gender : String = ""
     @ColumnInfo(name = "ocupation") val ocupation : String = ""
-
+    @ColumnInfo(name = "address") val address :String = ""
+    @ColumnInfo(name = "ine") val ine : String = ""
+    @ColumnInfo(name = "phone") val phone : String = ""
+    @ColumnInfo(name = "bills") val bills : Double = 0.0
+    @ColumnInfo(name = "availability") val availability : String = ""
 
 }
