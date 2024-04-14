@@ -1,8 +1,10 @@
+package com.binarybrains.movit.model.persistance
+
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
-import com.binarybrains.movit.model.entity.User
+import com.binarybrains.movit.model.persistance.User
 
 @Entity(tableName = "Dsolicitud",
     foreignKeys = [ForeignKey(
