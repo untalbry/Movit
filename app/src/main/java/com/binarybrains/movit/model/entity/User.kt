@@ -24,3 +24,4 @@ data class User(
     @ColumnInfo(name = "disponibilidad") val availability: String?,
     @ColumnInfo(name= "nivel_confianza") val confidenceLevel: Int =0
 )
+
