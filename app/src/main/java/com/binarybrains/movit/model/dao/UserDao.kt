@@ -26,6 +26,9 @@ interface UserDao{
     fun deleteUser(user: User)
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) // or choose another strategy like IGNORE
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: User)
+    @Query("UPDATE musuario SET disponibilidad = :newState WHERE userId = :userId")
+    fun updateAvailability(newState: Int, userId: Int)
+
 }
