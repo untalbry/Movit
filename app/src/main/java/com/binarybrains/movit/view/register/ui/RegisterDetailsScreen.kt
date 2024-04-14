@@ -52,7 +52,7 @@ fun RegisterDetails() {
         Spacer(modifier = Modifier.padding(8.dp))
         CurpField()
         Spacer(modifier = Modifier.padding(8.dp))
-        NextButton()
+        NextButton({})
         Spacer(modifier = Modifier.padding(4.dp))
         BackButton()
     }
@@ -200,9 +200,9 @@ fun CurpField() {
 }
 
 @Composable
-fun NextButton() {
+fun NextButton(onClick: () -> Unit) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
